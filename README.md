@@ -3,7 +3,7 @@
 ## Overview
 
 <p align="center">
-  <img src="assets/overview.jpg" style="width: 90%; height: auto;">
+  <img src="assets/overview.png" style="width: 90%; height: auto;">
 </p>
 
 PrivacyLens is a framework for **evaluating privacy norm awareness of language models in action**. It includes a procedural data construction pipeline and multi-level evaluation metrics. PrivacyLens comprises three major components:
