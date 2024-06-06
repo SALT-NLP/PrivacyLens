@@ -71,7 +71,7 @@ AVAILABLE_MODEL_NAMES = list(MODEL_NAMES | set(MODEL_SHORT_NAMES))
 
 
 def llm_register_args(parser, prefix=None, shortprefix=None, defaults={}):
-    model_name = defaults.get("model_name", "azure-gpt-4-1106")  # FIXME: Azure deployment name is subject to change.
+    model_name = defaults.get("model_name", "gpt-4")
     temperature = defaults.get("temperature", 0.0)
     max_tokens = defaults.get("max_tokens", None)
     default_retries = 8 if model_name.startswith("claude") else 12

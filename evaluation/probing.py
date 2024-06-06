@@ -39,7 +39,8 @@ def prepare_args():
     parser.add_argument('--specific-case-name', type=str, default=None,
                         help='If not None, only evaluate the case with the given name.')
     parser.add_argument('--level', nargs='+',
-                        default=['seed', 'vignette', 'trajectory', 'trajectory_enhancing'])
+                        default=['seed', 'vignette', 'trajectory', 'trajectory_enhancing'],
+                        help='The probing level to evaluate.')
     parser.add_argument('--model', type=str, required=True,
                         choices=['gpt-4-1106',
                                  'gpt-35-turbo-1106',

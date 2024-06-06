@@ -355,11 +355,8 @@ class StandardVirtualAgentExecutorWithToolkit(AgentExecutorWithToolkit):
             run_manager: Optional[CallbackManagerForChainRun] = None,
     ) -> Union[AgentFinish, List[Tuple[AgentAction, str]]]:
         """Override to use virtual tool execution and custom InvalidTool."""
-        # Pointer (yijia): Entry point to the simulation.
         # Call the LLM to see what to do. [Call Agent]
-        # pdb.set_trace()
         output = self.agent.plan(intermediate_steps, **inputs)
-        # pdb.set_trace()
         # If the tool chosen is the finishing tool, then we end and return.
         if isinstance(output, AgentFinish):
             return output
@@ -398,7 +395,6 @@ class StandardVirtualAgentExecutorWithToolkit(AgentExecutorWithToolkit):
                 }
 
                 # [Call Simulator]
-                # pdb.set_trace()
                 observation = run_with_input_validation(
                     self.llm_simulator_tool.run,
                     full_inputs,

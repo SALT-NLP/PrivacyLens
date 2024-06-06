@@ -36,7 +36,8 @@ def prepare_args():
                         help='Number of cases to evaluate. If -1, evaluate all remaining cases.')
     parser.add_argument('--specific-case-name', type=str, default=None,
                         help='If not None, only evaluate the case with the given name.')
-    parser.add_argument('--prompt-type', type=str, choices=['naive', 'privacy_enhanced'])
+    parser.add_argument('--prompt-type', type=str, choices=['naive', 'privacy_enhanced'],
+                        help='The type of the prompt to use for the agent.')
     parser.add_argument('--model', type=str, required=True,
                         choices=['gpt-4-1106',
                                  'gpt-35-turbo-1106',

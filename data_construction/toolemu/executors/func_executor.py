@@ -72,7 +72,6 @@ class BaseFuncExecutor:
                         sequential_generation=self._sequential_generation,
                         show_progress=not self._disable_batch_progress,
                         num_threads=1,
-                        # FIXME: hard code here # self._batch_size, # Avoid exceeding the API rate limit.
                         request_timeout=self._threading_request_timeout,
                         enable_timer=not self._disable_timer,
                     )

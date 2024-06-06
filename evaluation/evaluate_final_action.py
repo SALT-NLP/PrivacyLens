@@ -171,7 +171,7 @@ Reasoning: Let's think step by step in order to
 def prepare_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--data-path', type=str, help='Path of the evaluation data in json format.')
-    parser.add_argument('--action-path', type=str, help='Path of the LM agent final actions .')
+    parser.add_argument('--action-path', type=str, help='Path of the LM agent final actions.')
     parser.add_argument('--step', type=str,
                         choices=['extract_secret', 'judge_leakage', 'helpfulness'])
     parser.add_argument('--output-path', type=str, required=True, help='Path to save the results.')
