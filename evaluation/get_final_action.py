@@ -40,7 +40,7 @@ def prepare_args():
                         help='The type of the prompt to use for the agent.')
     parser.add_argument('--model', type=str, required=True,
                         choices=['gpt-4-1106',
-                                 'gpt-35-turbo-1106',
+                                 'gpt-3.5-turbo-1106',
                                  'claude-3-haiku-20240307',
                                  'claude-3-sonnet-20240229',
                                  'mistralai/Mistral-7B-Instruct-v0.2',
@@ -190,7 +190,7 @@ def main():
 
         if 'gpt' in args.model:
             final_action = openai_chat_completion_with_retry(
-                engine=args.model, messages=[{'role': 'user', 'content': agent_prompt}],
+                model=args.model, messages=[{'role': 'user', 'content': agent_prompt}],
                 max_tokens=400, temperature=0.0)
             final_action = final_action.choices[0].message['content'].strip()
         elif 'claude' in args.model:
