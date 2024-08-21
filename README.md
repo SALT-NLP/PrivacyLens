@@ -45,7 +45,8 @@ In the paper, we curate a dataset of 493 privacy-sensitive seeds, 493 vignettes,
       "data_sender_name": "Jane/John",
       "data_recipient": "who the data is sent to",
       "transmission_principle": "how the data is transmitted",
-      "source": "source of the seed"
+      "source": "source of the seed",
+      "source_details": {"...": "backtrace information for seeds collected from regulations or literature"}
    },
    "vignette": {
       "story": "expressive vignette",
