@@ -84,7 +84,7 @@ Run the following command under `evaluation/` to evaluate LMs with probing quest
 python probing.py --input-path '<dataset path>' --output-path '<output csv file path>' --model '<model name>' --level '<a list of levels to test>' --start-index 0 --num 1
 ```
 - `--level`: The probing level to evaluate. Can include `seed`, `vignette`, `trajectory`, `trajectory_enhancing`. `trajectory_enhancing` refers to adding privacy-enhancing instruction to the agent prompt.
-
+- `--model`: The name of the model to evaluate. We have evaluated `gpt-3.5-turbo-1106`, `gpt-4-1106-preview` `claude-3-haiku-20240307`, `claude-3-sonnet-20240229`, `mistralai/Mistral-7B-Instruct-v0.2`, `mistralai/Mixtral-8x7B-Instruct-v0.1`, `HuggingFaceH4/zephyr-7b-beta`, `meta-llama/Meta-Llama-3-8B-Instruct`, `meta-llama/Meta-Llama-3-70B-Instruct` in our paper.
 
 ### Evaluating LMs in Action with Agent Setup
 
@@ -93,6 +93,7 @@ Run the following command under `evaluation/` to get the final action of a certa
 python get_final_action.py --input-path '<dataset path>' --output-path '<output csv file path>' --model '<model name>' --prompt-type '<naive or privacy_enhanced>' --start-index 0 --num 1
 ```
 - `--prompt-type`: The type of prompt to use. Can be `naive` or `privacy_enhanced`.
+- `--model`: The name of the model to evaluate. We have evaluated `gpt-3.5-turbo-1106`, `gpt-4-1106-preview` `claude-3-haiku-20240307`, `claude-3-sonnet-20240229`, `mistralai/Mistral-7B-Instruct-v0.2`, `mistralai/Mixtral-8x7B-Instruct-v0.1`, `HuggingFaceH4/zephyr-7b-beta`, `meta-llama/Meta-Llama-3-8B-Instruct`, `meta-llama/Meta-Llama-3-70B-Instruct` in our paper.
 
 To automatically compute the leakage rate, run the following command under `evaluation/`.
 ```shell
