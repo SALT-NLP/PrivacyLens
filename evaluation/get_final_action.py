@@ -36,18 +36,11 @@ def prepare_args():
                         help='Number of cases to evaluate. If -1, evaluate all remaining cases.')
     parser.add_argument('--specific-case-name', type=str, default=None,
                         help='If not None, only evaluate the case with the given name.')
-    parser.add_argument('--prompt-type', type=str, choices=['naive', 'privacy_enhanced'],
+    parser.add_argument('--prompt-type', type=str,
+                        choices=['naive', 'privacy_enhanced', 'conservative', 'reckless'],
                         help='The type of the prompt to use for the agent.')
     parser.add_argument('--model', type=str, required=True,
-                        choices=['gpt-4-1106',
-                                 'gpt-35-turbo-1106',
-                                 'claude-3-haiku-20240307',
-                                 'claude-3-sonnet-20240229',
-                                 'mistralai/Mistral-7B-Instruct-v0.2',
-                                 'HuggingFaceH4/zephyr-7b-beta',
-                                 'mistralai/Mixtral-8x7B-Instruct-v0.1',
-                                 'meta-llama/Meta-Llama-3-8B-Instruct',
-                                 'meta-llama/Meta-Llama-3-70B-Instruct'])
+                        help='The model to use for the agent.')
     parser.add_argument('--gpu-num', type=int, default=1,
                         help='Number of GPUs to use for VLLM.')
     parser.add_argument('--hf-cache-dir', type=str,
@@ -85,6 +78,12 @@ def prepare_agent_prompt(
     elif prompt_type == 'privacy_enhanced':
         system_info = AGENT_PRIVACY_ENHANCED_SYSTEM_INFO
         prompt_instruction = AGENT_PRIVACY_ENHANCED_PROMPT
+    elif prompt_type == 'conservative':
+        system_info = AGENT_CONSERVATIVE_SYSTEM_INFO
+        prompt_instruction = AGENT_CONSERVATIVE_PROMPT
+    elif prompt_type == 'reckless':
+        system_info = AGENT_RECKLESS_SYSTEM_INFO
+        prompt_instruction = AGENT_RECKLESS_PROMPT
     else:
         raise ValueError('[Error] Unknown prompt type: {prompt_type}.')
 
@@ -138,9 +137,10 @@ def main():
 
     if 'gpt' in args.model:
         openai.api_key = os.environ['OPENAI_API_KEY']
-        openai.api_base = os.environ['OPENAI_API_BASE']
         openai.api_type = os.environ['OPENAI_API_TYPE']
-        openai.api_version = os.environ['OPENAI_API_VERSION']
+        if openai.api_type == 'azure':
+            openai.api_base = os.environ['OPENAI_API_BASE']
+            openai.api_version = os.environ['OPENAI_API_VERSION']
 
     if 'mistral' in args.model or 'llama' in args.model or 'zephyr' in args.model or 'vicuna' in args.model:
         vllm_engine = VLLM(

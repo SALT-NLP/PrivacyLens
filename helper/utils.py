@@ -109,7 +109,10 @@ def openai_chat_completion_with_retry(engine, messages, **kwargs):
         messages: [{'role': 'system'/'user'/'assistant'， 'content': '...'}, ...]
         **kwargs: max_tokens, temperature, top_p, ... (see OpenAI API documentation for details)
     """
-    response = openai.ChatCompletion.create(engine=engine, messages=messages, **kwargs)
+    if openai.api_type == 'azure':
+        response = openai.ChatCompletion.create(engine=engine, messages=messages, **kwargs)
+    else:
+        response = openai.ChatCompletion.create(model=engine, messages=messages, **kwargs)
     api_usage_tracker.increment_token_usage(
         model=engine,
         prompt_tokens=response.usage.prompt_tokens,
