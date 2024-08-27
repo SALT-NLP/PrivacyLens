@@ -255,7 +255,7 @@
   <link rel="alternate" href="/index.xml" type="application/rss+xml" title="PrivacyLens: Evaluating Privacy Norm Awareness of Language Models in Action">
   
 
-  <link rel="manifest" href="index.webmanifest">
+  <link rel="manifest" href="/index.webmanifest">
   <link rel="icon" type="image/png" href="images/icon_hua0cadf66651d69d307ba4e93758c0005_10827_32x32_fill_lanczos_center_3.png">
   <link rel="apple-touch-icon" type="image/png" href="images/icon_hua0cadf66651d69d307ba4e93758c0005_10827_192x192_fill_lanczos_center_3.png">
 
@@ -460,10 +460,10 @@
           <a href="https://tianshili.me/" style="color: inherit;">Tianshi Li</span></a><sup>2</sup>,
         </span>
         <span class="block">
-          <a href="https://wyshi.github.io/" style="color: inherit;">Weiyan Shi</a><sup>1</sup>,
+          <a href="https://wyshi.github.io/" style="color: inherit;">Weiyan Shi</a><sup>2</sup>,
         </span>
         <span class="block">
-          <a href="https://liuyanchen1015.github.io/" style="color: inherit;">Yanchen Liu</a><sup>1</sup>,
+          <a href="https://liuyanchen1015.github.io/" style="color: inherit;">Yanchen Liu</a><sup>3</sup>,
         </span>
         <span class="block">
           <a href="https://cs.stanford.edu/~diyiy/" style="color: inherit;">Diyi Yang</a><sup>1</sup>
@@ -471,13 +471,13 @@
       </div>
 
       <div class="text-lg mt-1">
-        <span class="block"><sup>1</sup>Stanford University <sup>2</sup>Northeastern University</span>
+        <span class="block"><sup>1</sup>Stanford University <sup>2</sup>Northeastern University <sup>3</sup>Harvard University</span>
       </div>
 
       <div class="text-center mt-6">
         <div class="flex flex-wrap justify-center gap-4">
           <span class="ml-4 mr-4">
-            <a href="">  
+            <a href="https://drive.google.com/file/d/1u3ERxLCqAOhJHhgXEFcH5abE7pmc24YD/view?usp=sharing">  
               <i class="ai ai-arxiv mr-2"></i>
               Paper
             </a>
@@ -508,9 +508,18 @@
     </div>
 
     <div class="gif-container">
-      <img src="files/example1.gif" alt="GPT-4 Agent Privacy Leakage Example">
-      <img src="files/example2.gif" alt="Claude-3 Agent Privacy Leakage Example">
-      <img src="files/example3.gif" alt="Llama-3-70B Agent Privacy Leakage Example">
+      <figure>
+        <img src="files/example1.gif" alt="GPT-4 Agent Privacy Leakage Example">
+        <figcaption>GPT-4 agent leaks employee resignation and termination details.</figcaption>
+      </figure>
+      <figure>
+        <img src="files/example2.gif" alt="Claude-3 Agent Privacy Leakage Example">
+        <figcaption>Claude-3 agent leaks a child's online username and password.</figcaption>
+      </figure>
+      <figure>
+        <img src="files/example3.gif" alt="Llama-3-70B Agent Privacy Leakage Example">
+        <figcaption>Llama-3-70B agent leaks the sex of the baby discovered during an ultrasound.</figcaption>
+      </figure>
     </div>
 
   </div>
@@ -782,7 +791,7 @@
 <img src="files/prompting.jpg" style="max-width: 100%; height: auto; margin-top: 20px; margin-bottom: 20px;">
 <ol start="3">
 <li>We experiment with adding privacy-enhancing content to the agent system prompt, but <strong>such prompt engineering does not significantly boost performance in action-based evaluation</strong>.</li>
-<li>Our paper includes further analysis of the safety-helpfulness trade-off.</li>
+<li><a href="https://drive.google.com/file/d/1u3ERxLCqAOhJHhgXEFcH5abE7pmc24YD/view?usp=sharing" target="_blank" rel="noopener">Our paper</a> includes further analysis of the safety-helpfulness trade-off.</li>
 </ol>
 <div style="border: 2px solid #000; border-radius: 10px; padding: 10px; width: 100%; margin: 0 auto; background-color: lightyellow;" class="mt-2">
 <strong>⭐ Takeaways:</strong><br>
@@ -848,7 +857,7 @@
     <div class="col-12 col-lg-8">
       <p>We consider our work to be <span style="background-color: lightyellow;">a first step in exploring privacy norm awareness of LMs in action</span> and recognize two main limitations that can serve as interesting directions for future work:</p>
 <ol>
-<li>We collect general privacy norms in the U.S to construct our dataset, but inherently, <strong>privacy concerns can differ across individuals and cultural groups</strong> (check out additional experiments by leveraging <a href="https://arxiv.org/abs/2404.15238" target="_blank" rel="noopener">CultureBank</a> in Appendix D).</li>
+<li>We collect general privacy norms in the U.S to construct our dataset, but inherently, <strong>privacy concerns can differ across individuals and cultural groups</strong> (check out additional experiments by leveraging <a href="https://arxiv.org/abs/2404.15238" target="_blank" rel="noopener">CultureBank</a> in <a href="https://drive.google.com/file/d/1u3ERxLCqAOhJHhgXEFcH5abE7pmc24YD/view?usp=sharing" target="_blank" rel="noopener">Appendix D</a>).</li>
 <li>Our setup focuses on LM-mediated communication (e.g., using LM agent to send emails/messages, etc.). <strong>Unintentional LM privacy leakage can occur in other scenarios</strong> (e.g., web agents interacting with websites).</li>
 </ol>
 <p>If you have any thoughts or are interested in this line of research, feel free to <a href="mailto:shaoyj@stanford.edu">reach out to us</a>.</p>
