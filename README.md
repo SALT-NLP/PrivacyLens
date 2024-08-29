@@ -6,10 +6,23 @@
   <img src="assets/overview.png" style="width: 90%; height: auto;">
 </p>
 
-PrivacyLens is a framework for **evaluating privacy norm awareness of language models in action**. It includes a procedural data construction pipeline and multi-level evaluation metrics. PrivacyLens comprises three major components:
-- **Privacy-Sensitive Seed:** A negative privacy norm expressed as a 5-tuple, (data type, data subject, data sender, data recipient, transmission principle).
-- **Vignette:** A privacy-sensitive scenario that captures the essence of a privacy-sensitive seed.
+PrivacyLens is a data construction and multi-level evaluation framework for **evaluating privacy norm awareness of language models in action**.
+
+
+### What you can do with PrivacyLens?
+#### 1. Constructing contextualized data points.
+PrivacyLens proposes to uncover privacy-sensitive scenarios with three levels of data points:
+- **Privacy-Sensitive Seed:** A negative privacy norm expressed as a 5-tuple, `(data type, data subject, data sender, data recipient, transmission principle)`.
+- **Vignette:** An expressive piece of story that captures the essence of a privacy-sensitive seed.
 - **Trajectory:** A sequence of LM agent actions and the environment observations that simulate the behavior of an agent in a privacy-sensitive scenario, excluding the final action.
+
+
+The effort required to obtain data points increases from seed to vignette to trajectory. To help create more contextualized data points, PrivacyLens offers a data construction pipeline that programmatically converts seeds into vignettes and trajectories.
+
+
+#### 2. Conducting both probing-based and action-based evaluations.
+- **Probing-based Evaluation:** PrivacyLens provides multi-choice question template to probe the privacy norm awareness of LMs at different levels.
+- **Action-based Evaluation:** PrivacyLens evaluates the final action of an LM agent using the trajectory data points and computes the leakage rate and helpfulness rating of the final action.
 
 
 ## Setup
@@ -33,8 +46,15 @@ PrivacyLens is a framework for **evaluating privacy norm awareness of language m
    ANTHROPIC_API_KEY={anthropic_api_key}
    ```
 
-## Dataset
-In the paper, we curate a dataset of 493 privacy-sensitive seeds, 493 vignettes, and 493 trajectories. The dataset is available in [`data/main_data.json`](data/main_data.json), and each datapoint has the following structure:
+## Quick Start
+Before delving into the details of replicating our study or running experiment scripts, we provide a [quick-start notebook](helper/quick_start.ipynb) to walk you through what PrivacyLens can do.
+
+## Evaluate LMs' Privacy Norm Awareness
+
+### Dataset
+In the paper, we collect 493 privacy-sensitive seeds from U.S. privacy regulations, privacy literature on vulnerable groups, and crowdsourcing. We further extend them into vignettes and trajectories.
+
+The dataset is available in [`data/main_data.json`](data/main_data.json), and each datapoint has the following structure:
 ```json
 {
    "name": "unique id",
@@ -69,14 +89,12 @@ In the paper, we curate a dataset of 493 privacy-sensitive seeds, 493 vignettes,
 
 You can also access the dataset through [Hugging Face Datasets](https://huggingface.co/datasets/SALT-NLP/PrivacyLens).
 
-We also include 32 (seeds, vignettes, trajectories) extended from [ConfAIde](https://arxiv.org/abs/2310.17884) and  25 (seeds, vignettes, trajectories) extended from [CultureBank](https://arxiv.org/abs/2404.15238) in [`data/extensibility/`](data/extensibility).
+The additional data extended from [ConfAIde](https://arxiv.org/abs/2310.17884) (see Appendix D) and  data extended from [CultureBank](https://arxiv.org/abs/2404.15238) (see Section 5.3) can be found in [`data/extensibility/`](data/extensibility).
 
 To view the data points in a more readable way, you can use our data inspection tool. Run the following command in the root directory and upload the JSON file.
 ```shell
 streamlit run helper/inspect_data.py
 ```
-
-## Evaluate LMs' Privacy Norm Awareness
 
 ### Probing in Question-Answering Format
 
@@ -94,17 +112,19 @@ Run the following command under `evaluation/` to get the final action of a certa
 python get_final_action.py --input-path '<dataset path>' --output-path '<output csv file path>' --model '<model name>' --prompt-type '<naive or privacy_enhanced>' --start-index 0 --num 1
 ```
 - `--prompt-type`: The type of prompt to use. Can be `naive` or `privacy_enhanced`.
-- `--model`: The name of the model to evaluate. We have evaluated `gpt-3.5-turbo-1106`, `gpt-4-1106-preview` `claude-3-haiku-20240307`, `claude-3-sonnet-20240229`, `mistralai/Mistral-7B-Instruct-v0.2`, `mistralai/Mixtral-8x7B-Instruct-v0.1`, `HuggingFaceH4/zephyr-7b-beta`, `meta-llama/Meta-Llama-3-8B-Instruct`, `meta-llama/Meta-Llama-3-70B-Instruct` in our paper.
+- `--model`: See above.
 
 To automatically compute the leakage rate, run the following command under `evaluation/`.
 ```shell
 python evaluate_final_action.py --data-path '<dataset path>' --action-path '<action csv file path>' --step 'judge_leakage' --output-path '<output json file path>' --hf-cache-dir '<cache dir to store the evaluator checkpoint>'
 ```
+- For reproducibility of our paper, this script uses `Mistral-7B-Instruct-v0.2` to judge the data leakage, so it requires GPU resource.
 
 To get the helpfulness rating of the final action, run the following command under `evaluation/`.
 ```shell
 python evaluate_final_action.py --data-path '<dataset path>' --action-path '<action csv file path>' --step 'helpfulness' --output-path '<output json file path>' --hf-cache-dir '<cache dir to store the evaluator checkpoint>'
 ```
+- For reproducibility of our paper, this script uses `Mistral-7B-Instruct-v0.2` to rate the helpfulness, so it requires GPU resource.
 
 ## Using the Data Construction Pipeline Yourself
 
@@ -125,7 +145,8 @@ We expect the seeds to be in the following format (the same with the final datas
          "transmission_principle": "how the data is transmitted",
          "source": "source of the seed"
       }
-   }
+   },
+   "...more seeds..."
 ]
 ```
 Run the following command under `data_construction/` to expand the seeds to vignettes.

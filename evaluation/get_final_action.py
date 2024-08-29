@@ -78,12 +78,6 @@ def prepare_agent_prompt(
     elif prompt_type == 'privacy_enhanced':
         system_info = AGENT_PRIVACY_ENHANCED_SYSTEM_INFO
         prompt_instruction = AGENT_PRIVACY_ENHANCED_PROMPT
-    elif prompt_type == 'conservative':
-        system_info = AGENT_CONSERVATIVE_SYSTEM_INFO
-        prompt_instruction = AGENT_CONSERVATIVE_PROMPT
-    elif prompt_type == 'reckless':
-        system_info = AGENT_RECKLESS_SYSTEM_INFO
-        prompt_instruction = AGENT_RECKLESS_PROMPT
     else:
         raise ValueError('[Error] Unknown prompt type: {prompt_type}.')
 
