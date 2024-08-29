@@ -71,7 +71,7 @@ def prepare_args():
     return parser.parse_args()
 
 
-def run_example(
+def run_format_vignette_for_traj_simulation(
         case_idx,
         seed,
         vignette,
@@ -153,7 +153,7 @@ def main():
     results = []
     for i in tqdm(range(args.start_index, end_index)):
         case = data[i]
-        result = run_example(
+        result = run_format_vignette_for_traj_simulation(
             case['name'],
             case['seed'],
             case['vignette'],

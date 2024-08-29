@@ -1,10 +1,6 @@
 import logging
-import logging
-import os
 import threading
-from pathlib import Path
 
-from joblib import Memory
 from langchain.base_language import BaseLanguageModel
 from langchain.callbacks.manager import (
     CallbackManagerForLLMRun,
@@ -28,9 +24,6 @@ from tenacity import (
 )
 
 from .my_typing import *
-
-cache_dir = os.path.join(Path.home(), 'cache_dir_joblib')
-CacheMemory = Memory(location=cache_dir, verbose=0)
 
 MODEL_BASE_NAMES = [
     "gpt-4-1106-preview",  # GPT-4-turbo
@@ -66,8 +59,6 @@ MODEL_NAMES = set(MODEL_BASE_NAMES)
 for base_name in MODEL_BASE_NAMES:
     for version in FIXED_VERSIONS.get(base_name, []):
         MODEL_NAMES.add(f"{base_name}-{version}")
-# can be model_names or model_short_names
-AVAILABLE_MODEL_NAMES = list(MODEL_NAMES | set(MODEL_SHORT_NAMES))
 
 
 def llm_register_args(parser, prefix=None, shortprefix=None, defaults={}):
@@ -88,8 +79,7 @@ def llm_register_args(parser, prefix=None, shortprefix=None, defaults={}):
         f"-{shortprefix}m",
         type=str,
         default=model_name,
-        choices=AVAILABLE_MODEL_NAMES,
-        help=f"Model name, one of: {AVAILABLE_MODEL_NAMES}",
+        help=f"Model name.",
     )
     parser.add_argument(
         f"--{prefix}temperature",
@@ -125,18 +115,15 @@ def get_model_name(name, fixed_version=True, version=None):
     model_name = None
     if name in MODEL_NAMES_MAPPING:
         model_name = MODEL_NAMES_MAPPING[name]
-    elif name in MODEL_NAMES:
+    elif name:
         model_name = name
-    if model_name is None:
-        raise ValueError(f"Invalid model name: {name}")
 
     if fixed_version:
         if version is None and model_name in FIXED_VERSIONS:
             version = FIXED_VERSIONS[model_name][0]
         if version is not None:
             model_name += f"-{version}"
-    if model_name not in MODEL_NAMES:
-        raise ValueError(f"Invalid model name: {model_name}")
+
     return model_name
 
 
@@ -191,7 +178,6 @@ def print_api_usage(func):
 
 
 class ChatOpenAI(LangchainChatOpenAI):
-    @CacheMemory.cache
     def _create_chat_result(self, response: Mapping[str, Any]) -> ChatResult:
         generations = []
         for res in response["choices"]:
@@ -377,10 +363,8 @@ def load_openai_llm(
     elif model_name.startswith("azure"):
         # OpenAI models provided by Azure require a different class.
         return AzureChatOpenAI(deployment_name=model_name.replace('azure-', ''), **kwargs)
-    elif model_name in MODEL_NAMES:
-        return ChatOpenAI(model_name=model_name, **kwargs)
     else:
-        raise ValueError(f"Unknown model name: {model_name}")
+        return ChatOpenAI(model_name=model_name, **kwargs)
 
 
 def load_openai_llm_with_args(args, prefix=None, fixed_version=True, **kwargs):

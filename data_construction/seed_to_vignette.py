@@ -129,7 +129,7 @@ def prepare_args():
     return parser.parse_args()
 
 
-def run_example(
+def run_seed_to_vignette(
         case_idx,
         source,
         data_type,
@@ -232,7 +232,7 @@ def main():
     for i in tqdm(range(args.start_index, end_index)):
         data_file = data[i]
         seed = data_file['seed']
-        result = run_example(
+        result = run_seed_to_vignette(
             data_file['name'],
             seed['source'],
             seed['data_type'],

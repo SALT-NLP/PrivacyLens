@@ -68,9 +68,6 @@ random.seed(args.random_seed)
 def main():
     llms = {role: load_openai_llm_with_args(args, prefix=role) for role in ROLES}
     cases = DataLoader.from_args(args, return_mode="with_idx", item_name="case")
-    print(f"You are going to run {len(cases)} cases.")
-    if input("Continue? (y/n): ") != "y":
-        exit()
     runner = FuncExecutorWithRetry.from_args(args)
     os.makedirs(args.dump_dir, exist_ok=True)
     output_path = os.path.join(
@@ -104,10 +101,7 @@ def main():
         return failed_item, outputs
 
     runner.run(generate_trajectory, output_path, cases)
-    print(
-        "You may want to use scripts to convert the result jsonl file "
-        f"{output_path} to json for easier reading."
-    )
+    print(f"The trajectory is saved at {output_path}")
 
 
 if __name__ == "__main__":
