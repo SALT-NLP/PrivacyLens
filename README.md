@@ -1,5 +1,10 @@
 # PrivacyLens: Evaluating Privacy Norm Awareness of Language Models in Action
 
+<p align="center">
+| <a href="https://arxiv.org/abs/2409.00138"><b>Paper</b></a> | <a href="https://huggingface.co/datasets/SALT-NLP/PrivacyLens"><b>HF Dataset</b></a> | <a href="https://salt-nlp.github.io/PrivacyLens/"><b>Website</b></a> |
+</p>
+
+
 ## Overview
 
 <p align="center">
@@ -175,7 +180,16 @@ Run the following commands under `data_construction/`.
    python evaluate_final_action.py --data-path '<trajectory data path>' --step 'extract_secret' --output-path '<the same trajectory data path>' --hf-cache-dir '<cache dir to store the evaluator checkpoint>'
    ```
 
-
-
-
-
+## Citation
+Please cite out paper if you find our code or dataset useful.
+```bibtex
+@misc{shao2024privacylensevaluatingprivacynorm,
+      title={PrivacyLens: Evaluating Privacy Norm Awareness of Language Models in Action}, 
+      author={Yijia Shao and Tianshi Li and Weiyan Shi and Yanchen Liu and Diyi Yang},
+      year={2024},
+      eprint={2409.00138},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2409.00138}, 
+}
+```
