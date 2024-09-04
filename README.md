@@ -181,7 +181,7 @@ Run the following commands under `data_construction/`.
    ```
 
 ## Citation
-Please cite out paper if you find our code or dataset useful.
+Please cite our paper if you find our code or dataset useful.
 ```bibtex
 @misc{shao2024privacylensevaluatingprivacynorm,
       title={PrivacyLens: Evaluating Privacy Norm Awareness of Language Models in Action}, 
