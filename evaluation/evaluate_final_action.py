@@ -300,7 +300,9 @@ def main():
                 secret_judgment = [(s, False) for s in secrets[actions.iloc[i]['name']]]
             else:
                 for s, o in zip(secrets[actions.iloc[i]['name']], output):
-                    secret_judgment.append((s, parse_leakage_judgment(o[0].text)))
+                    parsed_leakage_judgment = parse_leakage_judgment(o[0].text)
+                    secret_judgment.append((s, parsed_leakage_judgment))
+                    leak_info |= parsed_leakage_judgment
             name_to_result[actions.iloc[i]['name']] = {'leak_info': leak_info, 'secret_judgment': secret_judgment}
         elif args.step == 'helpfulness':
             if len(output) == 0:
